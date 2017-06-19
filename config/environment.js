@@ -20,6 +20,22 @@ module.exports = function (environment) {
     APP: {
       // Here you can pass flags/options to your application instance
       // when it is created
+    },
+
+    firebase: {
+      apiKey: 'AIzaSyAX3N-bmvk29LInlpiKNqZFlsQQpmGvMlY',
+      authDomain: 'ember-libray-app.firebaseapp.com',
+      databaseURL: 'https://ember-libray-app.firebaseio.com',
+      projectId: 'ember-libray-app',
+      storageBucket: 'ember-libray-app.appspot.com',
+      messagingSenderId: '777176460550'
+    },
+
+    // if using ember-cli-content-security-policy
+    contentSecurityPolicy: {
+      'script-src': "'self' 'unsafe-eval' apis.google.com",
+      'frame-src': "'self' https://*.firebaseapp.com",
+      'connect-src': "'self' wss://*.firebaseio.com https://*.googleapis.com"
     }
   }
 
@@ -43,7 +59,7 @@ module.exports = function (environment) {
   }
 
   if (environment === 'production') {
-
+    // nothing to see here yet.
   }
 
   return ENV
