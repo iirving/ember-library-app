@@ -3,10 +3,13 @@
   <div class="form-horizontal form-group form-group-lg row">
     <div class="col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-1 col-md-5 col-md-offset-2">
       {{input type="email"
-        value=emailAddress
+        value=model.email
         class="form-control"
         placeholder="Please type your e-mail address."
         autofocus="autofocus"}}
+      {{#if model.isValidEmailAddress}}
+        <span class="glyphicon glyphicon-ok form-control-feedback has-success"></span>
+      {{/if}}
     </div>
       </div>
   <div class="form-horizontal form-group form-group-lg row">
@@ -15,17 +18,22 @@
         class="form-control"
         placeholder="Your message. (At least 5 characters.)"
         rows="7"
-        value=message}}
+        value=model.message}}
+      {{#if model.isValidMessage}}
+        <span class="glyphicon glyphicon-ok form-control-feedback has-success"></span>
+      {{/if}}
     </div>
   </div>
 
 
   <div class="form-horizontal form-group form-group-lg row">
      <div class="col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-1 col-md-5 col-md-offset-2">
-      <button class="btn btn-primary btn-lg btn-block" disabled={{isDisabled}} {{action 'saveContactMsg'}}>     Send message
+      <button type="submit"
+        class="btn btn-primary btn-lg btn-block"
+        disabled={{model.isNotValid}}
+        {{action 'saveContact' model}}>
+        Send message
       </button>
-
-
     </div>
   </div>
 
