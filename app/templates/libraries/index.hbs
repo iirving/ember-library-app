@@ -14,7 +14,7 @@
       </div>
 
         <div class="panel-footer text-right">
-          <div class="btn btn-success btn-xs">Edit</div>
+          {{#link-to 'libraries.edit' library.id class="btn btn-success btn-xs"}}Edit{{/link-to}}
           <button class="btn btn-danger btn-xs" {{action 'deleteLibrary' library}}>Delete</button>
         </div>
 
