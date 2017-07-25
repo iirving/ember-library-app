@@ -59,7 +59,9 @@ module.exports = function (environment) {
   }
 
   if (environment === 'production') {
-    // nothing to see here yet.
+    ENV['ember-faker'] = {
+      enabled: true
+    }
   }
 
   return ENV

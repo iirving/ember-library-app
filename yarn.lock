@@ -2615,6 +2615,10 @@ ember-export-application-global@^2.0.0:
   dependencies:
     ember-cli-babel "^6.0.0-beta.7"
 
+ember-faker@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/ember-faker/-/ember-faker-1.1.1.tgz#90ca83edef385d8f43bed3ceaed263b59f68773c"
+
 ember-inflector@^2.0.0:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/ember-inflector/-/ember-inflector-2.0.1.tgz#e9ac469ffa17992a43276bb1c9b8d87992b10d37"
