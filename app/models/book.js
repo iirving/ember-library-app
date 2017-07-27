@@ -17,7 +17,7 @@ export default DS.Model.extend({
   randomize (author, library) {
     this.set('title', this._bookTitle())
     this.set('author', author)
-    this.set('releaseYear', this._randomYear())
+    this.set('releaseYear', this._randomDate(1900, 2017))
     this.set('library', library)
 
     return this
@@ -27,8 +27,10 @@ export default DS.Model.extend({
     return `${Faker.commerce.productName()} Cookbook`
   },
 
-  _randomYear () {
-    return new Date(this._getRandomArbitrary(1900, 2015).toPrecision(4))
+  _randomDate (start, end) {
+    let startDate = new Date(start, 0, 1)
+    let endDate = new Date(end, 0, 1)
+    return new Date(startDate.getTime() + Math.random() * (endDate.getTime() - startDate.getTime()))
   },
 
   _getRandomArbitrary (min, max) {
