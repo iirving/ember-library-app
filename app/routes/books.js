@@ -2,13 +2,10 @@ import Ember from 'ember'
 
 export default Ember.Route.extend({
 
-  showYear: Ember.computed('releaseYear', function () {
-    // console.log(this.get('releaseYear'))
-    return this.get('releaseYear').getFullYear()
-  }),
-
   model () {
-    return this.store.findAll('book')
+    return this.store.findAll('book', {
+      include: 'authors'
+    })
   },
 
   actions: {

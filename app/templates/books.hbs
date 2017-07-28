@@ -3,15 +3,17 @@
 <table class="table table-bordered table-striped">
    <thead>
      <tr>
-       <th>Title  <small class="small not-bold">(Click on title for editing)</small>
-       </th>
-       <th class="vtop">Published</th>
+
+      <th>Title  <small class="small not-bold">(Click on title for editing)</small></th>
+      <th>Author</th>
+      <th class="vtop">Published</th>
      </tr>
    </thead>
    <tbody>
 
     {{#each model as |book|}}
       <tr>
+
         <td>
           {{#if book.isEditing}}
             <form {{action 'saveBook' book on='submit'}} class="form-inline">
@@ -32,6 +34,9 @@
               {{book.title}}
             </span>
           {{/if}}
+        </td>
+        <td>
+          <span>{{book.author.name}}</span>
         </td>
         <td>
           {{moment-format book.releaseYear 'MMMM Do, YYYY'}}
