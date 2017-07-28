@@ -90,8 +90,6 @@ export default Ember.Controller.extend({
 
   // Private methods
 
-  // Create a new library record and uses the randomizator, which is in our model and generates some fake data in
-  // the new record. After we save it, which is a promise, so this returns a promise.
   _saveRandomLibrary () {
     return this.store.createRecord('library').randomize().save()
   },

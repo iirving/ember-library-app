@@ -1,11 +1,11 @@
-<h2>List</h2>
+<h2>List ({{model.length}})</h2>
 
-<div class="row">
+  <div class="row">
 
-{{#each model as |library|}}
-  <div class="col-md-4">
-    {{#library-item item=library}}{{/library-item}}
+  {{#each model as |library|}}
+    <div class="col-md-4">
+      {{#library-item item=library}}{{/library-item}}
+    </div>
+  {{/each}}
+
   </div>
-{{/each}}
-
-</div>

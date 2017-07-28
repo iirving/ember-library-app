@@ -1,4 +1,4 @@
-<h1>Books</h1>
+<h1>Books ({{model.length}})</h1>
 
 <table class="table table-bordered table-striped">
    <thead>
@@ -7,6 +7,7 @@
       <th>Title  <small class="small not-bold">(Click on title for editing)</small></th>
       <th>Author</th>
       <th class="vtop">Published</th>
+      <th>Library</th>
      </tr>
    </thead>
    <tbody>
@@ -40,9 +41,8 @@
         </td>
         <td>
           {{moment-format book.releaseYear 'MMMM Do, YYYY'}}
-
-
         </td>
+        <td>{{book.library.name}}</td>
 
       </tr>
     {{/each}}
