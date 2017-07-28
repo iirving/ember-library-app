@@ -23,12 +23,11 @@ module.exports = function (environment) {
     },
 
     firebase: {
-      apiKey: 'AIzaSyAX3N-bmvk29LInlpiKNqZFlsQQpmGvMlY',
+      apiKey: process.env.FIREBASE_APIKEY,
       authDomain: 'ember-libray-app.firebaseapp.com',
       databaseURL: 'https://ember-libray-app.firebaseio.com',
       projectId: 'ember-libray-app',
-      storageBucket: 'ember-libray-app.appspot.com',
-      messagingSenderId: '777176460550'
+      storageBucket: 'ember-libray-app.appspot.com'
     },
 
     // if using ember-cli-content-security-policy
