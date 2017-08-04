@@ -31,9 +31,9 @@
               </div>
             </form>
           {{else}}
-            <span {{action 'editBook' book}}>
+            <a {{action 'editBook' book}}>
               {{book.title}}
-            </span>
+            </a>
           {{/if}}
         </td>
         <td>

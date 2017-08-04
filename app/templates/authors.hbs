@@ -28,9 +28,9 @@
               </div>
             </form>
           {{else}}
-            <span {{action 'editAuthor' author}}>
+            <a {{action 'editAuthor' author}}>
               {{author.name}}
-            </span>
+            </a>
           {{/if}}
         </td>
         <td>
