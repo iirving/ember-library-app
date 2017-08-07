@@ -2,14 +2,12 @@ import Ember from 'ember'
 import Faker from 'faker'
 
 export default Ember.Controller.extend({
-
   // libraries: Ember.computed.alias('model.libraries'),
   // books: Ember.computed.alias('model.books'),
   // authors: Ember.computed.alias('model.authors')
 
   actions: {
-
-    generateLibraries (volume) {
+    generateLibraries(volume) {
       // Progress flag, data-down to seeder-block where our lovely button will show a spinner...
       this.set('generateLibrariesInProgress', true)
 
@@ -22,29 +20,27 @@ export default Ember.Controller.extend({
       }
 
       // Wait for all Promise to fulfill so we can show our label and turn off the spinner.
-      Ember.RSVP.all(savedLibraries)
-        .then(() => {
-          this.set('generateLibrariesInProgress', false)
-          this.set('libDone', true)
-        })
+      Ember.RSVP.all(savedLibraries).then(() => {
+        this.set('generateLibrariesInProgress', false)
+        this.set('libDone', true)
+      })
     },
 
-    deleteLibraries () {
+    deleteLibraries() {
       // Progress flag, data-down to seeder-block button spinner.
       this.set('deleteLibrariesInProgress', true)
 
       // Our local _destroyAll return a promise, we change the label when all records destroyed.
       this._destroyAll(this.get('libraries'))
-
-      // Data down via seeder-block to fader-label that we ready to show the label.
-      // Change the progress indicator also, so the spinner can be turned off.
-      .then(() => {
-        this.set('libDelDone', true)
-        this.set('deleteLibrariesInProgress', false)
-      })
+        // Data down via seeder-block to fader-label that we ready to show the label.
+        // Change the progress indicator also, so the spinner can be turned off.
+        .then(() => {
+          this.set('libDelDone', true)
+          this.set('deleteLibrariesInProgress', false)
+        })
     },
 
-    generateBooksAndAuthors (volume) {
+    generateBooksAndAuthors(volume) {
       // Progress flag, data-down to seeder-block button spinner.
       this.set('generateBooksInProgress', true)
 
@@ -53,22 +49,24 @@ export default Ember.Controller.extend({
 
       for (let i = 0; i < counter; i++) {
         // Collect Promises in an array.
-        const books = this._saveRandomAuthor().then(newAuthor => this._generateSomeBooks(newAuthor))
+        const books = this._saveRandomAuthor().then(newAuthor =>
+          this._generateSomeBooks(newAuthor)
+        )
         booksWithAuthors.push(books)
       }
 
       // Let's wait until all async save resolved, show a label and turn off the spinner.
-      Ember.RSVP.all(booksWithAuthors)
-
-      // Data down via seeder-block to fader-label that we ready to show the label
-      // Change the progress flag also, so the spinner can be turned off.
-      .then(() => {
-        this.set('authDone', true)
-        this.set('generateBooksInProgress', false)
-      })
+      Ember.RSVP
+        .all(booksWithAuthors)
+        // Data down via seeder-block to fader-label that we ready to show the label
+        // Change the progress flag also, so the spinner can be turned off.
+        .then(() => {
+          this.set('authDone', true)
+          this.set('generateBooksInProgress', false)
+        })
     },
 
-    deleteBooksAndAuthors () {
+    deleteBooksAndAuthors() {
       // Progress flag, data-down to seeder-block button to show spinner.
       this.set('deleteBooksInProgress', true)
 
@@ -78,27 +76,26 @@ export default Ember.Controller.extend({
       // Remove authors first and books later, finally show the label.
       this._destroyAll(authors)
         .then(() => this._destroyAll(books))
-
-      // Data down via seeder-block to fader-label that we ready to show the label
-      // Delete is finished, we can turn off the spinner in seeder-block button.
-      .then(() => {
-        this.set('authDelDone', true)
-        this.set('deleteBooksInProgress', false)
-      })
+        // Data down via seeder-block to fader-label that we ready to show the label
+        // Delete is finished, we can turn off the spinner in seeder-block button.
+        .then(() => {
+          this.set('authDelDone', true)
+          this.set('deleteBooksInProgress', false)
+        })
     }
   },
 
   // Private methods
 
-  _saveRandomLibrary () {
+  _saveRandomLibrary() {
     return this.store.createRecord('library').randomize().save()
   },
 
-  _saveRandomAuthor () {
+  _saveRandomAuthor() {
     return this.store.createRecord('author').randomize().save()
   },
 
-  _generateSomeBooks (author) {
+  _generateSomeBooks(author) {
     const bookCounter = Faker.random.number(10)
     let books = []
 
@@ -106,14 +103,13 @@ export default Ember.Controller.extend({
       const library = this._selectRandomLibrary()
 
       // Creating and saving book, saving the related records also are take while, they are all a Promise.
-      const bookPromise =
-        this.store.createRecord('book')
+      const bookPromise = this.store
+        .createRecord('book')
         .randomize(author, library)
         .save()
         .then(() => author.save())
-
-      // guard library in case if we don't have any
-      .then(() => library && library.save())
+        // guard library in case if we don't have any
+        .then(() => library && library.save())
       books.push(bookPromise)
     }
 
@@ -121,7 +117,7 @@ export default Ember.Controller.extend({
     return Ember.RSVP.all(books)
   },
 
-  _selectRandomLibrary () {
+  _selectRandomLibrary() {
     // Please note libraries are records from store, which means this is a DS.RecordArray object, it is extended from
     // Ember.ArrayProxy. If you need an element from this list, you cannot just use libraries[3], we have to use
     // libraries.objectAt(3)
@@ -133,7 +129,7 @@ export default Ember.Controller.extend({
     return libraries.objectAt(randomItem)
   },
 
-  _destroyAll (records) {
+  _destroyAll(records) {
     // destroyRecord() is a Promise and will be fulfilled when the backend database is confirmed the delete
     // lets collect these Promises in an array
     const recordsAreDestroying = records.map(item => item.destroyRecord())
@@ -141,5 +137,4 @@ export default Ember.Controller.extend({
     // Wrap all Promise in one common Promise, RSVP.all is our best friend in this process. ;)
     return Ember.RSVP.all(recordsAreDestroying)
   }
-
 })
