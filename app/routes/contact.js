@@ -2,15 +2,15 @@ import Ember from 'ember'
 
 export default Ember.Route.extend({
 
-  model () {
+  model() {
     return this.store.createRecord('contact')
   },
 
   actions: {
 
-    saveContact (newContact) {
+    saveContact(newContact) {
       const that = this // .get('newContact')
-      newContact.save().then((response) => {
+      newContact.save().then(() => {
         // console.log('response', response)
         // console.log('newContact', newContact)
         // console.log(that)
@@ -23,7 +23,7 @@ export default Ember.Route.extend({
       })
     },
 
-    willTransition () {
+    willTransition() {
       this.controller.get('model').rollbackAttributes()
     }
 

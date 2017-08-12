@@ -11,8 +11,15 @@
 
         <div class="text-left">Number of books: {{item.books.length}}</div>
         <div class="text-right">
-          {{#link-to 'libraries.edit' item.id class="btn btn-success btn-xs"}}Edit{{/link-to}}
-          <button class="btn btn-danger btn-xs" {{action 'deleteLibrary' item}}>Delete</button>
+          {{#link-to  'libraries.edit'
+                      item.id
+                      class="btn btn-success btn-xs"
+                      data-test-button-edit-library=item.id
+          }}Edit{{/link-to}}
+          <button class="btn btn-danger btn-xs"
+                  {{action 'deleteLibrary' item}}
+                  data-test-button-delete-library-id="{item.id}"
+          >Delete</button>
         </div>
 
     </div>
