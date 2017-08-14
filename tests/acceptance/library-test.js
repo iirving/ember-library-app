@@ -18,10 +18,36 @@ test('edit an existing libary', function(assert) {
   visit('/libraries')
   click('[data-test-button-edit-library]', 0) // get the first items edit button and click
 
+  let id = '' // doing this here so i can use it in other scopes because async
+
   andThen(function() {
     // get the model id from the attribute on the h2
-    let id = find('[data-test-library-edit-item-id]').data()['testLibraryEditItemId']
+    id = find('[data-test-library-edit-item-id]').data()['testLibraryEditItemId']
     assert.equal(currentURL(), `/libraries/${id}/edit`)
+  })
+
+  // edit the data
+  fillIn('[data-test-name]', 'test name')
+  fillIn('[data-test-address]', 'test address')
+  fillIn('[data-test-phone]', '123')
+  // submit and save the data
+  click('[data-test-button-submit]')
+
+  andThen(function() {
+    assert.equal(currentURL(), `/libraries`) // got to the list of libraries page
+    // test that the items for that record have changed
+    assert.equal(
+      find('[data-test-library-item-name]', `[data-test-library-item-id=${id}]`)
+      .text(),
+      'test name')
+    assert.equal(
+      find('[data-test-library-item-address]', `[data-test-library-item-id=${id}]`)
+      .text(),
+      'test address')
+    assert.equal(
+      find('[data-test-library-item-phone]', `[data-test-library-item-id=${id}]`)
+      .text(),
+      '123')
   })
 })
 
